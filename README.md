@@ -1,4 +1,4 @@
-# MercsClan.com
+# gen.mercsclan.com
 
 ## Getting Started
 

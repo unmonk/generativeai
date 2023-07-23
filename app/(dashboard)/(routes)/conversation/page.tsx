@@ -18,10 +18,13 @@ import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import Heading from "@/components/heading";
 import { BotAvatar, UserAvatar } from "@/components/user-avatar";
+import { usePremiumModal } from "@/hooks/use-premium-modal";
+import toast from "react-hot-toast";
 
 const CoversationPage = () => {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const premiumModal = usePremiumModal();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,12 +45,17 @@ const CoversationPage = () => {
         method: "POST",
         body: JSON.stringify({ messages: newMessages }),
       });
+
+      if (res.status === 403) {
+        premiumModal.onOpen();
+        return;
+      }
+
       const json = await res.json();
       setMessages((current) => [...current, userMessage, json]);
       form.reset();
-    } catch (err: any) {
-      //todo pro modal
-      console.log(err);
+    } catch (error: any) {
+      toast.error(error.toString());
     } finally {
       router.refresh();
     }

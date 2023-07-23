@@ -14,10 +14,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
+import toast from "react-hot-toast";
+import { usePremiumModal } from "@/hooks/use-premium-modal";
 
 const VideoPage = () => {
   const router = useRouter();
   const [video, setVideo] = useState<string>();
+  const premiumModal = usePremiumModal();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,12 +37,15 @@ const VideoPage = () => {
         method: "POST",
         body: JSON.stringify(data),
       });
+      if (res.status === 403) {
+        premiumModal.onOpen();
+        return;
+      }
       const json = await res.json();
       setVideo(json[0]);
       form.reset();
     } catch (err: any) {
-      //todo pro modal
-      console.log(err);
+      toast.error(err.toString());
     } finally {
       router.refresh();
     }

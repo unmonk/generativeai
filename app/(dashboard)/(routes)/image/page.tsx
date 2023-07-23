@@ -23,9 +23,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
+import { usePremiumModal } from "@/hooks/use-premium-modal";
+import toast from "react-hot-toast";
 
 const ImagePage = () => {
   const router = useRouter();
+  const premiumModal = usePremiumModal();
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,15 +49,18 @@ const ImagePage = () => {
         method: "POST",
         body: JSON.stringify(data),
       });
-      const json = await res.json();
+      if (res.status === 403) {
+        premiumModal.onOpen();
+        return;
+      }
 
+      const json = await res.json();
       const urls = json.map((image: { url: string }) => image.url);
       setImages(urls);
 
       form.reset();
     } catch (err: any) {
-      //todo pro modal
-      console.log(err);
+      toast.error(err.toString());
     } finally {
       router.refresh();
     }

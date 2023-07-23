@@ -14,9 +14,11 @@ import { Button } from "@/components/ui/button";
 import Heading from "@/components/heading";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
+import { usePremiumModal } from "@/hooks/use-premium-modal";
 
 const MusicPage = () => {
   const router = useRouter();
+  const premiumModal = usePremiumModal();
   const [music, setMusic] = useState<string>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,8 +40,9 @@ const MusicPage = () => {
       setMusic(json.audio);
       form.reset();
     } catch (err: any) {
-      //todo pro modal
-      console.log(err);
+      if (err?.response?.status === 403) {
+        premiumModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
