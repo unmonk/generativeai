@@ -27,9 +27,10 @@ export const PremiumModal = () => {
   const onSubscribe = async () => {
     try {
       setLoading(true);
-      //   const response = await axios.get("/api/stripe");
-
-      //   window.location.href = response.data.url;
+      const response = await fetch("/api/stripe");
+      const data = await response.json();
+      const { url } = data;
+      window.location.href = url;
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

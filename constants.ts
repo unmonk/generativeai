@@ -28,14 +28,14 @@ export const tools = [
     label: "Music Generation",
     icon: Music,
     href: "/music",
-    color: "text-orange-400",
-    bgColor: "bg-orange-400/10",
+    color: "text-orange-500",
+    bgColor: "bg-orange-500/10",
   },
   {
     label: "Code Generation",
     icon: Code,
     href: "/code",
-    color: "text-purple-600",
-    bgColor: "bg-purple-600/10",
+    color: "text-purple-500",
+    bgColor: "bg-purple-500/10",
   },
 ];

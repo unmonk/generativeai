@@ -26,7 +26,17 @@ export const FreeCounter = ({
   if (!mounted) {
     return null;
   }
-  if (isPremium) return null;
+  if (isPremium) {
+    return (
+      <div className="px-3">
+        <Card className="dark:bg-white/10 bg-black/10 border-0">
+          <CardContent className="py-6 text-center">
+            <p>Premium Member🎉</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="px-3">
