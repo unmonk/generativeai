@@ -19,7 +19,7 @@ export const LandingNav = () => {
         <div className="relative h-8 w-8 mr-4">
           <Image fill alt="Logo" src="/images/secondary.png" />
         </div>
-        <h1 className={cn("text-2xl font-bold text-white", font.className)}>
+        <h1 className={cn("text-2xl font-bold", font.className)}>
           Mercs Generate
         </h1>
       </Link>
