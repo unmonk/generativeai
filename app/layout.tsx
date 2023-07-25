@@ -11,7 +11,31 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Mercs AI Generation",
-  description: "Mercs Community",
+  description: "Mercs Community AI Generation Tools",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://gen.mercsclan.com",
+    siteName: "Mercs AI Generation",
+    title: "Mercs AI Generation",
+    description: "Mercs Community AI Generation Tools",
+    images: [
+      {
+        url: "https://gen.mercsclan.com/images/og-image.png",
+      },
+    ],
+  },
+  twitter: {
+    images: [
+      {
+        url: "https://gen.mercsclan.com/images/og-image.png",
+      },
+    ],
+    site: "https://gen.mercsclan.com",
+    card: "summary_large_image",
+    title: "Mercs AI Generation",
+    description: "Mercs Community AI Generation Tools",
+  },
 };
 
 export default function RootLayout({
